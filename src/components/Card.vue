@@ -2,7 +2,9 @@
 <template>
     <div class="card-container">
         <div class="card-body">
-            <div class="image-container"></div>
+            <div class="image-container">
+                <img v-if="image_path" src="image_path">
+            </div>
             <div class="text-container"></div>
         </div>
     </div>
@@ -15,5 +17,6 @@
     height: 475px;
     width: 275px;
     border: 2px solid;
+    padding: 5px;
 }
 </style>
