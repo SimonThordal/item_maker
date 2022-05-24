@@ -1,5 +1,4 @@
 <script>
-import { nextTick } from 'vue'
 
 export default {
   data() {
@@ -16,6 +15,19 @@ export default {
   methods: {
     emitTextboxSize() {
       this.$emit('textBoxSize', this.$refs.text.offsetTop)
+    },
+    dropImage(e) {
+      const dt = e.dataTransfer;
+      const files = dt.files;
+      let file  = files[0];
+      if (!file.type.startsWith('image/')){ 
+        alert('It seems you dropped a non-image file. Please try with another image.')
+      }
+      let img = this.$refs.image_container;
+      img.file = file;
+      const reader = new FileReader();
+      reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
+      reader.readAsDataURL(file);
     }
   },
   mounted() {
@@ -39,8 +51,11 @@ export default {
 </script>
 <template>
   <div class="card-sections">
-    <div class="image-container">
-      <img v-if="image_path" :src="image_path" @load="emitTextboxSize">
+    <div class="image-container"
+    @drop.prevent="dropImage"
+    @dragenter.prevent @dragover.prevent
+    >
+      <img ref="image_container" v-if="image_path" :src="image_path" @load="emitTextboxSize" @drop="dropImage">
     </div>
     <div class="title-container">
       <h3>{{title}}</h3>
