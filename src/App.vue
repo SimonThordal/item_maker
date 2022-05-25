@@ -24,6 +24,10 @@ export default {
       this.offsetTop.top = -size + "px"
     },
     addCard() {
+      if (this.cards.length >= 4) {
+        alert('You cannot add more than 4 cards for now')
+        return;
+      }
       this.cards.push(this.defaultCard)
     }
   }
