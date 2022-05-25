@@ -7,22 +7,24 @@ export default {
       offsetTop: {
         top: -1
       },
-      cards: [{
+      defaultCard: {
         image_path: '/src/assets/images/test_image_rect.jpg',
-        title: 'Gloves of Being Mean',
+        title: 'Sword of Placeholding',
         subtitle: 'Uncommon, Requires attunement',
-        text: "This kite shield was once part of a shield wall that fell while allowing the evacuation of innocent townsfolk. The agony and blood of that battle seeped into the metal, allowing it to be reforged years later into a reimagined bulwark. When you successfully shove a creature, using the shield to push it, that creature also takes 1d6 necrotic damage. In addition, while holding the shield, you can use an action to shout its command phrase, 'My conviction is greater than your might'. When you do, each hostile creature within 30 feet of you that can hear you must make a DC 15 Wisdom saving throw. Creatures that can't be charmed automatically succeed on the saving throw. On a failed save, a creature is compelled to use its action to attack you on its next turn. If the creature can make multiple attacks on its turn, it makes all of them against you. A creature that fails the saving throw also takes a –2 penalty to its AC until the end of your next turn; for each creature that takes this penalty, you gain a +1 bonus to your AC for the same duration (up to a maximum bonus of +5). Once this property of the shield has been used, it can't be used again until the next dusk or until you take 15 or more necrotic damage from a single hostile attack or magic effect. The wall stood strong as the village fled into the mountains. Holding their ground, the band of soldiers knew this was their final stand. One by one, their brethren fell, and the wall grew more and more narrow. Years later, that same conviction lived within that same metal, now reforged. The memory of that battle was now a timeless stain, but it could never tarnish the desire to protect others."
-      },{
-        image_path: '/src/assets/images/test_image_square.png',
-        title: 'Sentry Candle',
-        subtitle: 'Wondrous item, common',
-        text: "By using an action to read the mysterious lyrics on this scroll aloud, your words transform into a magical, enchanting song. You can continue to sing from the scroll as an action on each of your following turns for up to 5 minutes. If you sing for at least 1 minute, you gain a +5 bonus to any Charisma (Performance) check you make to sing using the scroll, or a +10 bonus if you sing for the scroll's full duration. When you sing for at least 1 minute using the scroll in this way, you can lace the song with some of your intention. Choose up to three creatures that you can see within 60 feet of you that can hear your performance. Those creatures must make a DC 13 Wisdom saving throw or be charmed by you for 1 hour. This effect ends early on a target if it takes any damage, if you attack it, or if it witnesses you attacking or damaging any of its allies. If a target succeeds on its saving throw, the target has no hint that you tried to charm it.When you stop singing, the words on the scroll fade, and its magic is lost. 'I didn't know you could sing, that was lovely!' 'Aww, thanks! I'm just hoping no one wants an encore.'"
-      },]
+        text: "Double click any text in the card to change it. Overflowing text will be printed on the back of the card."
+      },
+      cards: []
     }
+  },
+  mounted() {
+    this.addCard()
   },
   methods: {
     positionCardback(size) {
       this.offsetTop.top = -size + "px"
+    },
+    addCard() {
+      this.cards.push(this.defaultCard)
     }
   }
 }
@@ -33,6 +35,9 @@ export default {
     <div class="cards-layout">
       <div class="card-body" v-for="card in cards">
         <Card v-bind="card" @text-box-size="positionCardback"/>
+      </div>
+      <div class="add-button" @click="addCard">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z"/></svg>
       </div>
     </div>
     <div class="page-break cards-layout cardbacks-layout">
@@ -49,8 +54,13 @@ export default {
 <style>
 @import './assets/base.css';
 
+.add-button {
+  height: 100%;
+  width: 50px;
+}
 .cards-layout {
-    margin: 20px
+    margin: 20px;
+    display: flex;
 }
 .card-body {
     height: 475px;

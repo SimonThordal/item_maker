@@ -3,6 +3,10 @@
 export default {
   data() {
     return {
+      _image_path: this.image_path,
+      _title: this.title,
+      _subtitle: this.subtitle,
+      _text: this.text
     }
   },
   props: [
@@ -28,6 +32,17 @@ export default {
       const reader = new FileReader();
       reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
       reader.readAsDataURL(file);
+    },
+    edit(e, property) {
+      console.log("In edit")
+      let src = e.target.innerText;
+      this[property] = src;
+    },
+    endEdit(e, property){
+      if (e.shiftKey) {
+        return
+      }
+      e.target.blur(e, property)
     }
   },
   mounted() {
@@ -52,23 +67,34 @@ export default {
 <template>
   <div class="card-sections">
     <div class="image-container"
-    @drop.prevent="dropImage"
-    @dragenter.prevent @dragover.prevent
+      @drop.prevent="dropImage"
+      @dragenter.prevent @dragover.prevent
     >
-      <img ref="image_container" v-if="image_path" :src="image_path" @load="emitTextboxSize" @drop="dropImage">
+      <img ref="image_container" v-if="_image_path" :src="_image_path" @load="emitTextboxSize" @drop="dropImage">
     </div>
-    <div class="title-container">
-      <h3>{{title}}</h3>
+    <div class="title-container editable">
+      <h3 contenteditable
+        @blur="edit($event, '_title')"
+        @keydown.enter="endEdit($event, '_title')"
+        >{{_title}}</h3>
     </div>
-    <div class="subtitle-container">
-      {{subtitle}}
+    <div class="subtitle-container editable" contenteditable
+      @blur="edit($event, '_subtitle')"
+      @keydown.enter="endEdit($event, '_subtitle')">
+      {{_subtitle}}
     </div>
-    <div class="text-container" ref="text">
-      {{text}}
-    </div>>
+    <div contenteditable class="text-container editable"
+      @blur="edit($event, '_text')"
+      @keydown.enter="endEdit($event, '_text')"
+      ref="text">
+      {{_text}}
+    </div>
   </div>
 </template>
 <style>
+.editable {
+  white-space: pre-wrap
+}
 .image-container {
   max-height: 200px;
   display: flex;
