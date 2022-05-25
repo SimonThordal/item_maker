@@ -105,5 +105,8 @@ export default {
   .cardbacks-layout {
     flex-flow: row-reverse wrap;
   }
+  .add-button {
+    display: none;
+  }
 }
 </style>
