@@ -56,7 +56,7 @@ export default {
 </template>
 
 <style>
-@import './assets/base.css';
+@import '/assets/base.css';
 
 .add-button {
   height: 100%;
