@@ -28,7 +28,7 @@ export default {
         alert('You cannot add more than 4 cards for now')
         return;
       }
-      this.cards.push(this.defaultCard)
+      this.cards.push({...this.defaultCard})
     },
     updateProperty(card_index, property, value) {
       let card = this.cards[card_index]
@@ -71,8 +71,8 @@ export default {
     display: flex;
 }
 .card-body {
-    height: 475px;
-    width: 275px;
+    width: 2.75in;
+    height: 4.75in;
     border: 2px solid;
     padding: 5px;
     padding-bottom: 12px;
@@ -97,7 +97,6 @@ export default {
 }
 .offset-text {
   white-space: pre-wrap;
-  padding-top: 24 px;
   position:relative;
   top:-0;
 }

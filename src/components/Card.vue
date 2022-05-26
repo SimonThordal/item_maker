@@ -15,7 +15,9 @@ export default {
   emits: ['textBoxSize', 'propertyUpdate'],
   methods: {
     emitTextboxSize() {
-      this.$emit('textBoxSize', this.$refs.text.offsetTop)
+      let size = this.$refs.card_container.offsetHeight - this.$refs.text.offsetTop
+      console.log(size)
+      this.$emit('textBoxSize', size)
     },
     dropImage(e) {
       const dt = e.dataTransfer;
@@ -66,33 +68,38 @@ export default {
 }
 </script>
 <template>
-  <div class="card-sections">
-    <div class="image-container"
-      @drop.prevent="dropImage"
-      @dragenter.prevent @dragover.prevent
-    >
-      <img ref="image_container" v-if="_image_path" :src="_image_path" @load="emitTextboxSize" @drop="dropImage">
-    </div>
-    <div class="title-container editable">
-      <h3 contenteditable
-        @blur="edit($event, 'title')"
-        @keydown.enter="endEdit($event, 'title')"
-        >{{title}}</h3>
-    </div>
-    <div class="subtitle-container editable" contenteditable
-      @blur="edit($event, 'subtitle')"
-      @keydown.enter="endEdit($event, 'subtitle')">
-      {{subtitle}}
-    </div>
-    <div contenteditable class="text-container editable"
-      @blur="edit($event, 'text')"
-      @keydown.enter="endEdit($event, 'text')"
-      ref="text">
-      {{text}}
+  <div class="card-container" ref="card_container">
+    <div class="card-sections">
+      <div class="image-container"
+        @drop.prevent="dropImage"
+        @dragenter.prevent @dragover.prevent
+      >
+        <img ref="image_container" v-if="_image_path" :src="_image_path" @load="emitTextboxSize" @drop="dropImage">
+      </div>
+      <div class="title-container editable">
+        <h3 contenteditable
+          @blur="edit($event, 'title')"
+          @keydown.enter="endEdit($event, 'title')"
+          >{{title}}</h3>
+      </div>
+      <div class="subtitle-container editable" contenteditable
+        @blur="edit($event, 'subtitle')"
+        @keydown.enter="endEdit($event, 'subtitle')">
+        {{subtitle}}
+      </div>
+      <div contenteditable class="text-container editable"
+        @blur="edit($event, 'text')"
+        @keydown.enter="endEdit($event, 'text')"
+        ref="text">
+        {{text}}
+      </div>
     </div>
   </div>
 </template>
 <style>
+.card-container {
+  height: 100%
+}
 .editable {
   white-space: pre-wrap
 }
