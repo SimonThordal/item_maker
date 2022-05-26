@@ -66,11 +66,11 @@ export default {
 @import '/assets/base.css';
 
 .add-button {
-  height: 100%;
+  height: inherit;
   width: 50px;
+  display: flex;
 }
 .cards-layout {
-    margin: 20px;
     display: flex;
 }
 .card-body {
@@ -80,13 +80,12 @@ export default {
     border-radius: 10px;
     padding: 5px;
     padding-bottom: 12px;
+    margin: 5px;
 }
 .page-break {
   page-break-before: always;
 }
-.cardbacks-layout {
-  margin: 20px;
-}
+
 .cardback {
   outline: 2px solid;
   overflow-y: clip;
@@ -108,12 +107,6 @@ export default {
   .cards-layout {
     display: flex;
     flex-flow: row wrap;
-  }
-  .card-body {
-    width: 2.75in;
-    height: 4.75in;
-    margin-right: 5px;
-    margin-top: 5px;
   }
   .cardbacks-layout {
     flex-flow: row-reverse wrap;
