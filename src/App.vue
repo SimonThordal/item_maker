@@ -79,7 +79,7 @@ export default {
     border: 2px solid;
     border-radius: 10px;
     padding: 5px;
-    padding-bottom: 12px;
+    padding-bottom: 14px;
     margin: 5px;
 }
 .page-break {
