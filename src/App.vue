@@ -77,6 +77,7 @@ export default {
     width: 2.75in;
     height: 4.75in;
     border: 2px solid;
+    border-radius: 10px;
     padding: 5px;
     padding-bottom: 12px;
 }
