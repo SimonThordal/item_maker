@@ -9,7 +9,7 @@ export default {
         top: -1
       },
       defaultCard: {
-        image_path: 'assets/images/placeholder_sword.jpg',
+        image_path: 'assets/images/placeholder_sword.png',
         title: 'Sword of Placeholding',
         subtitle: 'Uncommon, Requires attunement',
         text: "Double click any text in the card to change it. Overflowing text will be printed on the back of the card."
