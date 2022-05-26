@@ -103,6 +103,8 @@ export default {
     flex-flow: row wrap;
   }
   .card-body {
+    width: 2.75in;
+    height: 4.75in;
     margin-right: 5px;
     margin-top: 5px;
   }

@@ -97,10 +97,12 @@ export default {
 }
 .image-container {
   max-height: 200px;
+  max-width: 100%;
   display: flex;
   justify-content: center;
 }
 .image-container img {
+  max-width: 100%;
   max-height: inherit;
   object-fit: scale-down;
 }
