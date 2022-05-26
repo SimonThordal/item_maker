@@ -71,7 +71,7 @@ export default {
     width: 275px;
     border: 2px solid;
     padding: 5px;
-    padding-bottom: 12px; 
+    padding-bottom: 12px;
 }
 .page-break {
   page-break-before: always;
@@ -101,6 +101,10 @@ export default {
   .cards-layout {
     display: flex;
     flex-flow: row wrap;
+  }
+  .card-body {
+    margin-right: 5px;
+    margin-top: 5px;
   }
   .cardbacks-layout {
     flex-flow: row-reverse wrap;
