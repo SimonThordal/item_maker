@@ -96,9 +96,9 @@ export default {
   background-color: white;
 }
 .offset-text {
-  padding-top: 35px;
-  padding-right: 5px;
-  position:absolute;
+  white-space: pre-wrap;
+  padding-top: 24 px;
+  position:relative;
   top:-0;
 }
 @media print {

@@ -33,6 +33,7 @@ export default {
     edit(e, property) {
       let src = e.target.innerText;
       this.updateProperty(property, src)
+      this.emitTextboxSize()
     },
     endEdit(e, property) {
       if (e.shiftKey) {
