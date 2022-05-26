@@ -75,24 +75,24 @@ body {
 
 @font-face {
   font-family: bookInsanity;
-  src: url('/src/assets/fonts/Bookinsanity.otf');
+  src: url('assets/fonts/Bookinsanity.otf');
 }
 
 @font-face {
   font-family: bookInsanity;
-  src: url('src/assets/fonts/Bookinsanity Bold.otf');
+  src: url('assets/fonts/Bookinsanity Bold.otf');
   font-weight: bold;
 }
 
 @font-face {
   font-family: bookInsanity;
-  src: url('src/assets/fonts/Bookinsanity Italic.otf');
+  src: url('assets/fonts/Bookinsanity Italic.otf');
   font-style: italic;
 }
 
 @font-face {
   font-family: bookInsanity;
-  src: url('src/assets/fonts/Bookinsanity Bold Italic.otf');
+  src: url('assets/fonts/Bookinsanity Bold Italic.otf');
   font-weight: bold;
   font-style: italic;
 }

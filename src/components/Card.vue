@@ -4,9 +4,6 @@ export default {
   data() {
     return {
       _image_path: this.image_path,
-      _title: this.title,
-      _subtitle: this.subtitle,
-      _text: this.text
     }
   },
   props: [
@@ -15,7 +12,7 @@ export default {
     "subtitle",
     "text"
   ],
-  emits: ['textBoxSize'],
+  emits: ['textBoxSize', 'propertyUpdate'],
   methods: {
     emitTextboxSize() {
       this.$emit('textBoxSize', this.$refs.text.offsetTop)
@@ -34,16 +31,19 @@ export default {
       reader.readAsDataURL(file);
     },
     edit(e, property) {
-      console.log("In edit")
       let src = e.target.innerText;
-      this[property] = src;
+      this.updateProperty(property, src)
     },
-    endEdit(e, property){
+    endEdit(e, property) {
       if (e.shiftKey) {
         return
       }
       e.target.blur(e, property)
+    },
+    updateProperty(property, value) {
+      this.$emit('propertyUpdate', [property, value])
     }
+
   },
   mounted() {
     this.emitTextboxSize()
@@ -74,20 +74,20 @@ export default {
     </div>
     <div class="title-container editable">
       <h3 contenteditable
-        @blur="edit($event, '_title')"
-        @keydown.enter="endEdit($event, '_title')"
-        >{{_title}}</h3>
+        @blur="edit($event, 'title')"
+        @keydown.enter="endEdit($event, 'title')"
+        >{{title}}</h3>
     </div>
     <div class="subtitle-container editable" contenteditable
-      @blur="edit($event, '_subtitle')"
-      @keydown.enter="endEdit($event, '_subtitle')">
-      {{_subtitle}}
+      @blur="edit($event, 'subtitle')"
+      @keydown.enter="endEdit($event, 'subtitle')">
+      {{subtitle}}
     </div>
     <div contenteditable class="text-container editable"
-      @blur="edit($event, '_text')"
-      @keydown.enter="endEdit($event, '_text')"
+      @blur="edit($event, 'text')"
+      @keydown.enter="endEdit($event, 'text')"
       ref="text">
-      {{_text}}
+      {{text}}
     </div>
   </div>
 </template>
@@ -96,7 +96,6 @@ export default {
   white-space: pre-wrap
 }
 .image-container {
-  max-height: 200px;
   max-width: 100%;
   display: flex;
   justify-content: center;
