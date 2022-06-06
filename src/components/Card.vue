@@ -16,7 +16,6 @@ export default {
   methods: {
     emitTextboxSize() {
       let size = this.$refs.card_container.offsetHeight - this.$refs.text.offsetTop
-      console.log(size)
       this.$emit('textBoxSize', size)
     },
     dropImage(e) {
@@ -47,23 +46,6 @@ export default {
       this.$emit('propertyUpdate', [property, value])
     }
 
-  },
-  mounted() {
-    this.emitTextboxSize()
-  },
-  watch: {
-    title: {
-      handler() {
-        this.emitTextboxSize()
-      },
-      flush: 'post'
-    },
-    subtitletitle: {
-      handler() {
-        this.emitTextboxSize()
-      },
-      flush: 'post'
-    },
   }
 }
 </script>
