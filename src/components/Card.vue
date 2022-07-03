@@ -1,5 +1,5 @@
 <script>
-
+import { nextTick } from 'vue'
 export default {
   data() {
     return {
@@ -21,7 +21,6 @@ export default {
   },
   methods: {
     getTextWidth(text, font) {
-      console.log(text)
       // re-use canvas object for better performance
       this.canvas = this.canvas || (this.canvas = document.createElement("canvas"));
       const context = this.canvas.getContext("2d");
@@ -148,7 +147,7 @@ export default {
     </div>
     <div ref="text_container" class="text-container">
       <div contenteditable ref="text_body" class="text-body editable"
-        @keydown="edit"
+        @keyup="edit($event, 'text')"
         @keydown.enter="endEdit($event, 'text')">
         {{text}}
       </div>
