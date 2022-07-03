@@ -22,6 +22,7 @@ export default {
   },
   methods: {
     positionCardback(i, size) {
+      console.log(size)
       let offset = this.offsets[i]
       offset.top = -size + "px"
     },
@@ -59,6 +60,7 @@ export default {
         </div>
       </div>
     </div>
+
   </main>
 </template>
 
@@ -82,6 +84,14 @@ export default {
     padding-bottom: 14px;
     margin: 5px;
 }
+
+.gridded {
+  columns: 2 2.75in;
+  column-gap: 2ch;
+  column-rule: 0ch;
+  column-span: all;
+}
+
 .page-break {
   page-break-before: always;
 }
