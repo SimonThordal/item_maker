@@ -15,7 +15,7 @@ export default {
     "subtitle",
     "text"
   ],
-  emits: ['textBoxSize', 'propertyUpdate'],
+  emits: ['reportContent', 'propertyUpdate'],
   mounted() {
     this.spaceWidth = this.getTextWidth(" ", this.getCanvasFont(this.$refs.text_body))
   },
@@ -36,10 +36,6 @@ export default {
       const fontSize = this.getCssStyle(el, 'font-size') || '16px';
       const fontFamily = this.getCssStyle(el, 'font-family') || 'Times New Roman';
       return `${fontWeight} ${fontSize} ${fontFamily}`;
-    },
-    emitTextboxSize() {
-      let size = this.$refs.card_container.offsetHeight - this.$refs.text_body.offsetTop
-      this.$emit('textBoxSize', size)
     },
     dropImage(e) {
       const dt = e.dataTransfer;
@@ -72,11 +68,14 @@ export default {
     lineText(text, lineLength) {
       // Given a string and the lineLength, returns the words on the next line
       // and the remaining string
-      const tokens = text.split(/(?<=\s)\b/ugm)
+      const tokens = text.split(/((?<=\s)\b)|$/mug)
       let line = ""
       let l = 0
       while (tokens.length > 0) {
         const token = tokens[0]
+        if (token == undefined) {
+          return [line, tokens.join("")]
+        }
         const tokenWidth = this.getTextWidth(token, this.getCanvasFont(this.$refs.text_body))
         if ((tokenWidth + l) > lineLength + this.spaceWidth) {
           break
@@ -85,7 +84,7 @@ export default {
         line += token
         l += tokenWidth
       } 
-      return [line.trim(), tokens.join("")]
+      return [line, tokens.join("")]
     },
     lines() {
       let remainder = this.$refs.text_body.innerText
@@ -113,14 +112,7 @@ export default {
       return this.getTextWidth(text, this.getCanvasFont(this.$refs.text_body))
     },
     report() {
-      console.log(this.lines())
-      /*
-      console.log({
-        maxLines: this.maxLines(), 
-        nLines: this.nLines(), 
-        textLength: this.textLength(),
-        lines: this.lines()
-      }) */
+      this.$emit('reportContent', [this.maxLines(), this.lines()])
     }
 
   }
@@ -132,7 +124,7 @@ export default {
       @drop.prevent="dropImage"
       @dragenter.prevent @dragover.prevent
     >
-      <img ref="image_container" v-if="_image_path" :src="_image_path" @load="emitTextboxSize" @drop="dropImage">
+      <img ref="image_container" v-if="_image_path" :src="_image_path" @drop="dropImage">
     </div>
     <div class="title-container editable">
       <h3 contenteditable
@@ -147,7 +139,7 @@ export default {
     </div>
     <div ref="text_container" class="text-container">
       <div contenteditable ref="text_body" class="text-body editable"
-        @keyup="edit($event, 'text')"
+        @keyup.stop.prevent="edit($event, 'text')"
         @keydown.enter="endEdit($event, 'text')">
         {{text}}
       </div>
@@ -184,6 +176,7 @@ export default {
 }
 .text-container {
   flex-grow: 1;
+  overflow-y: clip;
 }
 .text-body {
   overflow-y: clip;
