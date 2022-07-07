@@ -154,7 +154,8 @@ export default {
   flex-direction: column;
 }
 .editable {
-  white-space: pre-wrap
+  white-space: pre-wrap;
+  outline: 0px solid transparent;
 }
 .image-container {
   max-width: 100%;
