@@ -1,20 +1,15 @@
 <script>
 import Card from './components/Card.vue'
-import Cardback from './components/Cardback.vue'
 export default {
-  components: { Card, Cardback },
+  components: { Card },
   data() {
     return {
       defaultCard: {
-        front: {
-          image_path: 'assets/images/placeholder_sword.png',
-          title: 'Sword of Placeholding',
-          subtitle: 'Uncommon, Requires attunement',
-          text: "Double click any text in the card to change it. Overflowing text will be printed on the back of the card."
-        },
-        back: {
-          text: ""
-        }
+        image_path: 'assets/images/placeholder_sword.png',
+        title: 'Sword of Placeholding',
+        subtitle: 'Uncommon, Requires attunement',
+        text: "Double click any text in the card to change it. Overflowing text will be printed on the back of the card.",
+        backText: ""
       },
       cards: []
     }
@@ -28,19 +23,19 @@ export default {
         alert('You cannot add more than 4 cards')
         return;
       }
-      this.cards.push(this.defaultCard)
+      this.cards.push({...this.defaultCard})
     },
-    updateProperty(card_index, property, value) {
-      let card = this.cards[card_index]
-      card.front[property] = value
+    updateProperty(cardIndex, property, value) {
+      let card = this.cards[cardIndex]
+      card[property] = value
     },
-    updateCardContent(card_index, maxLines, lines) {
-      const card = this.cards[card_index]
+    updateCardContent(cardIndex, maxLines, lines) {
+      const card = this.cards[cardIndex]
       let backText = ""
       lines.slice(maxLines).forEach(line => {
         backText += line
       });
-      card.back.text = backText
+      card.backText = backText
       if (lines.length == maxLines + 1 && backText.length == 1) {
         console.log("Replace cursor!")
       }
@@ -53,7 +48,7 @@ export default {
   <main>
     <div class="cards-layout">
       <div class="card-body" v-for="(card, i) in cards">
-        <Card v-bind="card.front" @report-content="updateCardContent(i,...$event)" @property-update="updateProperty(i, ...$event)"/>
+        <Card v-bind="card" @report-content="updateCardContent(i,...$event)" @property-update="updateProperty(i, ...$event)"/>
       </div>
       <div class="add-button" @click="addCard">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z"/></svg>
@@ -62,7 +57,7 @@ export default {
     <div class="page-break cards-layout cardbacks-layout">
       <div class="card-body cardback" v-for="(card, i) in cards">
         <div contenteditable>
-          {{card.back.text}}
+          {{card.backText}}
         </div>
       </div>
     </div>
