@@ -56,7 +56,7 @@ export default {
     </div>
     <div class="page-break cards-layout cardbacks-layout">
       <div class="card-body cardback" v-for="(card, i) in cards">
-        <div contenteditable>
+        <div class="editable" contenteditable>
           {{card.backText}}
         </div>
       </div>
@@ -103,6 +103,10 @@ export default {
   max-height: 100%;
   font: 10px/1.2 "Bookinsanity";
   outline: 2px solid;
+}
+
+.editable {
+  outline: 0px solid transparent;
 }
 
 @media print {
